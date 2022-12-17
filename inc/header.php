@@ -7,7 +7,7 @@
     <title>UIT Pro</title>
 
     <!-- Favicon -->
-    <link rel="shortcut icon" href="assets/images/logo/favicon.png">
+    <link rel="shortcut icon" href="assets/images/logo/favicon.svg">
 
     <!-- page css --> 
 

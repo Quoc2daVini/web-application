@@ -4,7 +4,7 @@
 ?>
 
 <?php
-    include '../classes/brand.php';
+    include '../classes/classes.php';
 ?>
 
 <?php
