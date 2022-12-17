@@ -1,7 +1,4 @@
-<?php
-    include '../inc/header.php';
-    include 'adminsidenav.php';
-?>
+
 <!-- Content Wrapper START -->
 <div class="main-content">
                     <div class="page-header">
