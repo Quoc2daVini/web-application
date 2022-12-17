@@ -4,7 +4,7 @@
 ?>
 
 <?php
-    include '../classes/category.php';
+    include '../classes/classes.php';
 ?>
 
 <?php

@@ -2,7 +2,7 @@
     include '../inc/header.php';
     include 'adminsidenav.php';
 ?>
-<?php include '../classes/category.php'; ?>
+<?php include '../classes/classes.php'; ?>
 
 <?php
     $cat = new category();
