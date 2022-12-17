@@ -2,7 +2,7 @@
     include '../inc/header.php';
     include 'adminsidenav.php';
 ?>
-<?php include '../classes/brand.php'; ?>
+<?php include '../classes/classes.php'; ?>
 
 <?php
     $brand = new brand();

@@ -3,17 +3,18 @@
     include 'adminsidenav.php';
 ?>
 
-<?php
-    include '../classes/product.php';
+<?php //include '../classes/product.php'; ?>
+<?php //include '../classes/category.php'; ?>
+<?php 
+    include '../classes/classes.php';
 ?>
 
 <?php
-//     $prod = new product();
+    $pd = new product();
 
-//     if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-//         $brandName = $_POST['brandName'];
-//         $insertbrand = $brand->insert_brand($brandName);
-//    }
+    if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset(($_POST['submit'])) ) {
+        $insertProduct = $pd->insert_product($_POST, $_FILES);
+   }
 ?>
 
 <!-- Page Container START -->
@@ -33,19 +34,19 @@
                     <div class="card">
                         <div class="card-body">
                             <?php
-                            // if(isset($insertbrand)){
-                            //     echo $insertbrand;
-                            // }
+                            if(isset($insertProduct)){
+                                echo $insertProduct;
+                            }
                             ?>
-                            <form action="brandadd.php" method="POST">
+                            <form action="productadd.php" method="POST" enctype="multipart/form-data">
                             <!-- <div class="m-t-25"> -->
                                 <div class="row">
                                     <div class="col-md-4">
                                     <div class="input-group mb-3">
                                         <div class="input-group-prepend">
-                                            <span class="input-group-text" id="basic-addon1">Tên sản phẩm</span>
+                                            <span class="input-group-text" >Tên sản phẩm</span>
                                         </div>
-                                        <input type="text" class="form-control" placeholder="Nhập tên sản phẩm" name="productName" aria-describedby="basic-addon1">
+                                        <input type="text" class="form-control" placeholder="Nhập tên sản phẩm" name="productName" >
                                     </div>
 
                                     <div class="input-group mb-3">
@@ -54,8 +55,18 @@
                                         </div>
                                         <select class="btn btn-default dropdown-toggle" name="catID" aria-describedby="basic-addon1">
                                             <option>Chọn danh mục</option>
-                                            <option value=""></option>
-                                        </select>
+                                            <?php 
+                                            $cat = new category();
+                                            $catlist = $cat->show_category();
+                                            if($catlist){
+                                                while($result = $catlist->fetch_assoc()){
+                                            ?>
+                                            <option value="<?php echo $result['catID'] ?>"><?php echo $result['catName'] ?></option>
+                                            <?php
+                                                }
+                                            }
+                                            ?>
+                                        </select> 
                                     </div>
 
                                     <div class="input-group mb-3">
@@ -64,7 +75,17 @@
                                         </div>
                                         <select class="btn btn-default dropdown-toggle" name="brandID" aria-describedby="basic-addon1">
                                             <option>Chọn thương hiệu</option>
-                                            <option value=""></option>
+                                            <?php 
+                                            $brand = new brand();
+                                            $brandlist = $brand->show_brand();
+                                            if($brandlist){
+                                                while($result = $brandlist->fetch_assoc()){
+                                            ?>
+                                            <option value="<?php echo $result['brandID'] ?>"><?php echo $result['brandName'] ?></option>
+                                            <?php
+                                                }
+                                            }
+                                            ?>
                                         </select>
                                     </div>
 
@@ -86,21 +107,21 @@
                                         <div class="input-group-prepend">
                                             <span class="input-group-text" id="basic-addon1">Nổi bật</span>
                                         </div>
-                                        <select class="btn btn-default dropdown-toggle" name="productID" aria-describedby="basic-addon1">
+                                        <select class="btn btn-default dropdown-toggle" name="feature" aria-describedby="basic-addon1">
                                             <option>Chọn loại sản phẩm</option>
-                                            <option value="1">Noi bat</option>
-                                            <option value="">0 Noi bat</option>
+                                            <option value="1">Nổi bật</option>
+                                            <option value="0">Không nổi bật</option>
 
                                         </select>
                                     </div>
                                     
                                     <div class="custom-file">
-                                        <input type="file" class="custom-file-input" id="customFile">
+                                        <input type="file" class="custom-file-input" id="image" name="image">
                                         <label class="custom-file-label" for="customFile">Upload hình ảnh</label>
-                                    <!-- </div>
+                                    </div>
                                     
-                                    <div> -->
-                                         <input type="submit" class="btn btn-primary btn-tone m-r-5" required="" value="Thêm"/>
+                                    <div>
+                                         <input type="submit" name="submit" class="btn btn-primary btn-tone m-r-5" required="" value="Thêm"/>
                                     </div>
                                     </div>
                                 </div>
@@ -111,11 +132,7 @@
 
 </div>
             <!-- Page Container END -->
-            <!-- page css -->
-<link href="assets/vendors/select2/select2.css" rel="stylesheet">
 
-<!-- page js -->
-<script src="assets/vendors/select2/select2.min.js"></script>
 <?php
     include '../inc/footer.php';
 ?>
